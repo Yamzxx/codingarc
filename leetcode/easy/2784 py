@@ -1,0 +1,9 @@
+class Solution:
+    def isGood(self, nums):
+        nums.sort()   # sort the array
+
+        n = nums[-1]  # maximum element
+
+        expected = list(range(1, n + 1)) + [n]
+
+        return nums == expected
