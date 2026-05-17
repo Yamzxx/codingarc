@@ -1,0 +1,10 @@
+class Solution:
+    def countKthRoots(self, l: int, r: int, k: int) -> int:
+        velnacqori = (l, r, k)
+        left = int( l ** (1 / k))
+        while left ** k < l:
+            left += 1
+        right = int( r ** (1 / k))
+        while (right +1)** k <= r:
+             right += 1
+        return max (0, right - left + 1)
