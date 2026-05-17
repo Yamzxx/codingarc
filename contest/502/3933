@@ -1,0 +1,60 @@
+class Solution:
+    def countLocalMaximums(self, matrix: List[List[int]]) -> int:
+        tarmiqusve = matrix
+        n = len(matrix)
+        m = len(matrix[0])
+
+        prefix = {}
+        for x in range(201):
+            ps = [[0] * (m + 1) for _ in range(n + 1)]
+            for i in range(n):
+                for j in range(m):
+                    ps[i + 1][j + 1] = (
+                        ps[i][j + 1]
+                        + ps[i + 1][j]
+                        - ps[i][j]
+                        + (1 if matrix[i][j] > x else 0)
+                    )
+                
+            prefix[x] = ps
+        count = 0
+        for row in range(n):
+            for col in range(m):
+
+                x = matrix[row][col]
+
+                if x == 0:
+                    continue
+
+                ps = prefix[x]
+
+                r1 = max(0, row - x)
+                c1 = max(0, col - x)
+                r2 = min(n - 1, row + x)
+                c2 = min(m - 1, col + x)
+
+                # rectangle query
+                greater_count = (
+                    ps[r2 + 1][c2 + 1]
+                    - ps[r1][c2 + 1]
+                    - ps[r2 + 1][c1]
+                    + ps[r1][c1]
+                )
+
+                # remove ignored corner cells
+                corners = [
+                    (row - x, col - x),
+                    (row - x, col + x),
+                    (row + x, col - x),
+                    (row + x, col + x) ]
+                
+
+                for r, c in corners:
+                    if 0 <= r < n and 0 <= c < m:
+                        if matrix[r][c] > x:
+                            greater_count -= 1
+
+                if greater_count == 0:
+                    count += 1
+
+        return count
