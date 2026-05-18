@@ -1,0 +1,19 @@
+class Solution:
+    def twoSum(self, nums , target):
+        MyMap = {}
+        for i, n in enumerate(nums):
+            diff = target-n
+            if diff in MyMap:
+                return [ MyMap[diff] , i]
+            MyMap[n] = i
+        return
+
+
+        time complexity 0(n)
+        space complexity 0(n)
+        --> Hash map is more efficient
+
+
+        similarly 
+        with apporach with 0(n^2)
+        
