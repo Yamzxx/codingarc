@@ -1,0 +1,44 @@
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        
+        left = 0
+        right = len(nums) - 1
+
+        # keep searching till search space exists
+        while left <= right:
+
+            # go stand in the middle :)
+            mid = (left + right) // 2
+
+            # if target found, done
+            if nums[mid] == target:
+                return mid
+
+            # check if LEFT side looks normal/sorted
+            if nums[left] <= nums[mid]:
+
+                # if target can exist in left sorted side
+                if nums[left] <= target < nums[mid]:
+
+                    # ignore right side, search left
+                    right = mid - 1
+
+                else:
+                    # target definitely not here, go right
+                    left = mid + 1
+
+            else:
+                # okay, then RIGHT side must be sorted
+
+                # check if target belongs to right side
+                if nums[mid] < target <= nums[right]:
+
+                    # yup, move right
+                    left = mid + 1
+
+                else:
+                    # nope, search left side
+                    right = mid - 1
+
+        # searched everywhere, target not found :(
+        return -1
