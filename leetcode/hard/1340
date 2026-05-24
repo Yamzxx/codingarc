@@ -1,0 +1,53 @@
+from typing import List
+
+class Solution:
+    def maxJumps(self, arr: List[int], d: int) -> int:
+        n = len(arr)
+
+        # Memoization array
+        dp = [-1] * n
+
+        def dfs(i):
+            # If already computed
+            if dp[i] != -1:
+                return dp[i]
+
+            # Minimum jump count is 1 (current index itself)
+            max_jump = 1
+
+            # Check right side
+            for step in range(1, d + 1):
+                j = i + step
+
+                # Out of bounds
+                if j >= n:
+                    break
+
+                # Stop if greater or equal element found
+                if arr[j] >= arr[i]:
+                    break
+
+                # Update maximum jumps
+                max_jump = max(max_jump, 1 + dfs(j))
+
+            # Check left side
+            for step in range(1, d + 1):
+                j = i - step
+
+                # Out of bounds
+                if j < 0:
+                    break
+
+                # Stop if greater or equal element found
+                if arr[j] >= arr[i]:
+                    break
+
+                # Update maximum jumps
+                max_jump = max(max_jump, 1 + dfs(j))
+
+            # Store result
+            dp[i] = max_jump
+            return dp[i]
+
+        # Try starting from every index
+        return max(dfs(i) for i in range(n))
