@@ -1,0 +1,27 @@
+class Solution:
+    def numberOfSpecialChars(self, word: str) -> int:
+        
+        
+        
+        value = set(word)
+
+        # Variable to count special characters
+        special = 0
+
+        # Loop through every unique character in the set
+        for letter in value:
+
+            # Check if the character is a lowercase letter
+            if 'a' <= letter <= 'z':
+
+                # Convert lowercase to uppercase
+                # ord(letter) gives ASCII value
+                # subtracting 32 converts lowercase -> uppercase
+                # chr() converts ASCII back to character
+                if chr(ord(letter) - 32) in value:
+
+                    # If uppercase version exists, count it
+                    special += 1
+
+      
+        return special
