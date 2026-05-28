@@ -1,0 +1,51 @@
+###########(REVISE)
+
+
+
+class Solution:
+    def stringIndices(self, wordsContainer, wordsQuery):
+
+        class TrieNode:
+            def __init__(self):
+                self.children = {}
+                self.index = -1
+                self.length = float('inf')
+
+        root = TrieNode()
+
+        # Update best answer at node
+        def update(node, word_len, idx):
+            if (word_len < node.length or
+                (word_len == node.length and idx < node.index)):
+                node.length = word_len
+                node.index = idx
+
+        # Build trie with reversed container words
+        for idx, word in enumerate(wordsContainer):
+            node = root
+
+            # Update root for empty suffix case
+            update(node, len(word), idx)
+
+            for ch in reversed(word):
+                if ch not in node.children:
+                    node.children[ch] = TrieNode()
+
+                node = node.children[ch]
+                update(node, len(word), idx)
+
+        ans = []
+
+        # Process queries
+        for word in wordsQuery:
+            node = root
+
+            for ch in reversed(word):
+                if ch not in node.children:
+                    break
+
+                node = node.children[ch]
+
+            ans.append(node.index)
+
+        return ans
