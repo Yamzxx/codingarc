@@ -1,0 +1,14 @@
+# Check if the array has duplicates n return true else False
+# Solution is done using the set, this is an optimal solution with the time complexity of 0(n)
+#Space complexity as 0(n)
+# before this sol tried the various ways such as iterating through every element and comapring, although it does not consume lot of space, but the timec is 0(n2)
+an for sorting 0(nlogn) 
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        hashset = set()
+        for n in nums:
+            if n in hashset:
+                return True
+            hashset.add(n)
+        return False
+        
