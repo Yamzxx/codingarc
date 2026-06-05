@@ -1,0 +1,13 @@
+#Remove the duplicates from the sorted array 
+class solution:
+    def removeDuplicates(self, arr):
+        if(len(arr)) == 0:
+           return o
+        i = 0
+        for i  range(1,len(arr))
+            if(arr[j]!= arr[i]
+                  i++
+                arr[i] = arr[j]
+         return i + 1
+              
+        
