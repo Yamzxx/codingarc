@@ -1,0 +1,27 @@
+# left sum n right sum diff
+
+class Solution:
+    def leftRightDifference(self, nums):
+        n = len(nums)
+
+        # Initialize the answer array with zeros
+        ans = [0] * n
+
+        # Iterate through each index
+        for i in range(n):
+
+            #
+            leftsum = 0
+            for j in range(i):
+                leftsum += nums[j] #Left sum = sum of elements before index i
+                
+
+            # Calculate sum of elements to the right of index i
+            rightsum = 0
+            for j in range(i + 1, n):
+                rightsum += nums[j] #Right sum = sum of elements after index i
+
+            # Store the absolute difference
+            ans[i] = abs(leftsum - rightsum)
+
+        return ans
