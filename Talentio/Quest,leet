@@ -1,0 +1,19 @@
+#this was brute simple logic (shuffling arrays )
+Given the array nums consisting of 2n elements in the form [x1,x2,...,xn,y1,y2,...,yn].
+
+Return the array in the form [x1,y1,x2,y2,...,xn,yn].
+
+ 
+class Solution:
+    def shuffle(self, nums: List[int], n: int) -> List[int]:
+        res = []
+
+        # take one element from first half
+        # then one element from second half
+        # rem they didnt mention 2 diff arrays its jus one half another and jus jumbling
+        for i in range(n):
+        for i in range(n):
+            res.append(nums[i])      # x value
+            res.append(nums[i + n])  # y value
+
+        return res
