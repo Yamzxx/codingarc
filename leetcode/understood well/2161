@@ -1,0 +1,18 @@
+class Solution:
+    def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
+        # initalize the list
+        small = []
+        pvt = []
+        large= []
+        # keep traversing 
+        for x in nums:
+            if x < pivot:
+                small.append(x)
+            elif x > pivot:
+                large.append(x)
+            else :# x == pivot
+                pvt.append(x)
+                # the order shiuld be sameee as they occr
+        return small + pvt + large 
+
+        
