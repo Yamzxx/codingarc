@@ -1,0 +1,11 @@
+# basically the its mentioned that u can repeat the sub array any time,
+# approach is find the max, then min , later max - min * n 
+
+class Solution:
+    def maxTotalValue(self, nums: List[int], k: int) -> int:
+       maximum = max(nums)
+       minimum=  min(nums)
+
+       return (maximum - minimum)*k
+
+        
