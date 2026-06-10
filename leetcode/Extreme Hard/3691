@@ -1,0 +1,113 @@
+import heapq
+from typing import List
+
+# Segment Tree that supports:
+# 1. Range Maximum Query
+# 2. Range Minimum Query
+class SegTree:
+    def __init__(self, nums: List[int]):
+        self.n = len(nums)
+        
+        # Segment tree arrays (4*n is safe size)
+        self.maxv = [0] * (4 * self.n)
+        self.minv = [0] * (4 * self.n)
+        
+        # Build tree from input array
+        self.build(1, 0, self.n - 1, nums)
+
+    # Build segment tree recursively
+    def build(self, node: int, l: int, r: int, nums: List[int]):
+        # Leaf node → store actual value
+        if l == r:
+            self.maxv[node] = self.minv[node] = nums[l]
+            return
+        
+        m = (l + r) // 2
+        
+        # Build left and right children
+        self.build(node * 2, l, m, nums)
+        self.build(node * 2 + 1, m + 1, r, nums)
+        
+        # Merge results from children
+        self.maxv[node] = max(self.maxv[node * 2], self.maxv[node * 2 + 1])
+        self.minv[node] = min(self.minv[node * 2], self.minv[node * 2 + 1])
+
+    # Query maximum in range [ql, qr]
+    def queryMax(self, node: int, l: int, r: int, ql: int, qr: int) -> int:
+        # If current segment fully inside query range
+        if ql <= l and r <= qr:
+            return self.maxv[node]
+        
+        m = (l + r) // 2
+        res = float('-inf')
+        
+        # Query left child if needed
+        if ql <= m:
+            res = max(res, self.queryMax(node * 2, l, m, ql, qr))
+        
+        # Query right child if needed
+        if qr > m:
+            res = max(res, self.queryMax(node * 2 + 1, m + 1, r, ql, qr))
+        
+        return res
+
+    # Query minimum in range [ql, qr]
+    def queryMin(self, node: int, l: int, r: int, ql: int, qr: int) -> int:
+        # If fully inside range
+        if ql <= l and r <= qr:
+            return self.minv[node]
+        
+        m = (l + r) // 2
+        res = float('inf')
+        
+        # Query left child
+        if ql <= m:
+            res = min(res, self.queryMin(node * 2, l, m, ql, qr))
+        
+        # Query right child
+        if qr > m:
+            res = min(res, self.queryMin(node * 2 + 1, m + 1, r, ql, qr))
+        
+        return res
+
+
+class Solution:
+    def maxTotalValue(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        
+        # Build segment tree for fast range min/max queries
+        st = SegTree(nums)
+        
+        # Priority queue (max-heap using negative values)
+        # Each state: (value = range_max - range_min, l, r)
+        pq = [
+            (
+                -(st.queryMax(1, 0, n - 1, l, n - 1) -
+                  st.queryMin(1, 0, n - 1, l, n - 1)),
+                l,
+                n - 1
+            )
+            for l in range(n)
+        ]
+        
+        heapq.heapify(pq)
+        
+        ans = 0
+        
+        # We take k best contributions greedily
+        for _ in range(k):
+            val, l, r = heapq.heappop(pq)
+            
+            # Add actual value (convert back from negative)
+            ans += -val
+            
+            # Shrink range from right side and push new candidate
+            if r > l:
+                new_val = (
+                    st.queryMax(1, 0, n - 1, l, r - 1) -
+                    st.queryMin(1, 0, n - 1, l, r - 1)
+                )
+                
+                heapq.heappush(pq, (-new_val, l, r - 1))
+                
+        return ans
