@@ -1,0 +1,46 @@
+class Solution:
+    def addTwoNumbers(self, l1, l2):
+
+        # Dummy node helps us build the answer list easily
+        dummy = ListNode(-1)
+
+        # Current pointer used to add new nodes
+        curr = dummy
+
+        # Stores carry from previous addition
+        carry = 0
+
+        # Continue while there are digits left in either list
+        # OR there is a carry remaining
+        while l1 or l2 or carry:
+
+            # Start with the carry from previous step
+            total = carry
+
+            # Add current digit from first number
+            if l1:
+                total += l1.val
+                l1 = l1.next
+
+            # Add current digit from second number
+            if l2:
+                total += l2.val
+                l2 = l2.next
+
+            # Example:
+            # total = 17
+
+            # Carry is the tens digit
+            # 17 // 10 = 1
+            carry = total // 10
+
+            # Store only the ones digit in the current node
+            # 17 % 10 = 7
+            curr.next = ListNode(total % 10)
+
+            # Move current pointer forward
+            curr = curr.next
+
+        # Return the actual answer
+        # Skip dummy node
+        return dummy.next
