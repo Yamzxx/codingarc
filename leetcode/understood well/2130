@@ -1,0 +1,39 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        # Initialize slow and fast pointers
+        slow, fast = head, head
+
+        # 'prev' will be the head of the reversed first half
+        prev = None
+
+        # Find the middle of the list while reversing the first half
+        while fast and fast.next:
+            fast = fast.next.next  # Move fast pointer 2 steps
+
+            # Reverse the current slow node
+            temp = slow.next       # Store next node
+            slow.next = prev       # Reverse the link
+            prev = slow            # Move prev forward
+            slow = temp            # Move slow forward
+
+        # 'prev' -> reversed first half
+        # 'slow' -> start of second half
+
+        res = 0
+
+        # Compute maximum twin sum
+        while slow:
+            # Twin sum = node from first half + corresponding node from second half
+            res = max(res, prev.val + slow.val)
+
+            # Move both pointers forward
+            prev = prev.next
+            slow = slow.next
+
+        return res
