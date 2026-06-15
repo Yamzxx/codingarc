@@ -1,0 +1,25 @@
+# moves the zeroes to end
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        
+        # Create a temporary list to store all non-zero elements
+        temp = []
+
+        # Length of the input array
+        n = len(nums)
+
+        # Traverse the array and collect non-zero elements
+        for i in range(n):
+            if nums[i] != 0:
+                temp.append(nums[i])
+
+        # Number of non-zero elements
+        nz = len(temp)
+
+        # Copy all non-zero elements back to the beginning of nums
+        for i in range(nz):
+            nums[i] = temp[i]
+
+        # Fill the remaining positions with zeros
+        for i in range(nz, n):
+            nums[i] = 0
