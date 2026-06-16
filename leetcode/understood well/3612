@@ -1,0 +1,16 @@
+class Solution:
+    def processStr(self, s: str) -> str:
+        result = []
+        for ch in s:
+            if ch == '#':
+                result.extend(result) #duplicate
+            elif ch == '%':
+                result.reverse()      #reverse
+            elif ch == '*':
+                if result:            #remove
+                    result.pop()
+            else:
+                result.append(ch)      #add char
+        return ''.join(result)
+
+        
