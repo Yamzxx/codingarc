@@ -1,0 +1,12 @@
+class Solution:
+    def largestAltitude(self, gain: List[int]) -> int:
+        highest_altitude = 0 #highest so far
+        s = 0 #current altitude
+        for x in gain: #traverse
+            s += x
+            # Update highest altitude if current is greater
+            highest_altitude = max(highest_altitude,s)
+        return highest_altitude
+        
+
+        
