@@ -1,0 +1,29 @@
+class Solution:
+    def minimumDifference(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+
+        # If we choose only one student,
+        # highest and lowest scores are the same
+        if k == 1:
+            return 0
+
+        # Sort the scores in ascending order
+        nums.sort()
+
+        # Initialize with the difference of the first group of k students
+        mindiff = nums[k - 1] - nums[0]
+
+        # Check every possible group of k consecutive students
+        for i in range(n - k + 1):
+
+            # Lowest score in the current group
+            firstlowest = nums[i]
+
+            # Highest score in the current group
+            firsthighest = nums[i + k - 1]
+
+            # Update the minimum difference if a smaller one is found
+            mindiff = min(mindiff, firsthighest - firstlowest)
+
+        # Return the minimum difference found
+        return mindiff
