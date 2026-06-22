@@ -1,0 +1,17 @@
+MAX no of balloons
+class Solution:
+    def maxNumberOfBalloons(self, text: str) -> int:
+        # Count each character
+        count = {}
+
+        for ch in text:
+            count[ch] = count.get(ch, 0) + 1
+
+        # Find how many times "balloon" can be formed
+        b = count.get('b', 0)
+        a = count.get('a', 0)
+        l = count.get('l', 0) // 2  # 'l' appears twice
+        o = count.get('o', 0) // 2  # 'o' appears twice
+        n = count.get('n', 0)
+
+        return min(b, a, l, o, n)
