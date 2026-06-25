@@ -1,0 +1,28 @@
+from typing import List
+from collections import Counter
+class Solution:
+    def countMajoritySubarrays(self, nums: List[int], target: int) -> int:
+        # calculate length 
+        length= len(nums)
+        #Store current count of subarray
+        result = 0
+
+        #Fix the left boundary of subarray
+        for left in range(length):
+           #frequency of counter
+            counter = Counter()
+            #Extend right boundary form lrft to the end of array
+            for right in range(left, length):
+                #Current subarray length
+                window_size = right - left + 1
+                #Include the newly added
+                counter[nums[right]] += 1
+          # target is the majority if it apperas more than half
+                if counter[target] > window_size // 2:
+                    result += 1
+        return result
+
+
+
+
+        
