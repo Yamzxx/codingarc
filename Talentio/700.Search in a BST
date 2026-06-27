@@ -1,0 +1,29 @@
+Search in a BST
+-->wkt the right side of the root values > the root and the left side are < then the root
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def searchBST(self, root, key):
+
+        # Keep searching until we reach the end of the tree
+        while root:
+
+            # If the current node value matches the key, return that node
+            if root.val == key:
+                return root
+
+            # If key is smaller, move to the left subtree
+            elif key < root.val:
+                root = root.left
+
+            # If key is greater, move to the right subtree
+            else:
+                root = root.right
+
+        # If the key is not found, return None
+        return None
