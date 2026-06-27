@@ -1,0 +1,36 @@
+#Max num of elements in the subset
+class Solution:
+    def maximumLength(self, nums: List[int]) -> int:
+        #count the frequency of number
+        freq = Counter(nums)
+
+        #Min answer is 1 (we can always pick one element)
+        ans = 1
+        #Handle 1 seperately 
+        #we can use only an odd num of 1's:[1], [1,1,1]..
+        if 1 in freq:
+            ans = freq[1] if freq[1] % 2 else freq[1] - 1
+        #Try every number as the starting value X 
+        for x in freq:
+            if x == 1:
+                continue 
+            
+            cur = x
+            length = 0
+
+            #Every num except the middle one 
+            #must appear atleat once 
+            while freq[cur] >= 2:
+                length += 2
+                cur = cur * cur
+                #If current num exists use it as the miidle element
+            if freq[cur] >= 1:
+                length += 1
+            else:
+                length -= 1
+            
+            ans = max(ans, length)
+        return ans
+
+
+        
