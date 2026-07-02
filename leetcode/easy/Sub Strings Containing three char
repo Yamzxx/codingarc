@@ -1,0 +1,17 @@
+class Solution:
+    def numberOfSubstrings(self, s: str) -> int:
+        last_seen = {'a': -1, 'b': -1, 'c': -1}
+        count = 0
+        
+        for i, char in enumerate(s):
+            # Update the latest position of the current character
+            last_seen[char] = i
+            
+            # If all three characters have been seen at least once
+            if -1 not in last_seen.values():
+                # The number of valid substrings ending at index i is determined 
+                # by the smallest index among the last seen positions.
+                count += min(last_seen.values()) + 1
+                
+        return count
+        
