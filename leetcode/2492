@@ -1,0 +1,29 @@
+from collections import defaultdict, deque
+
+class Solution:
+    def minScore(self, n: int, roads: List[List[int]]) -> int:
+        graph = defaultdict(list)
+
+        # Build the graph
+        for u, v, dist in roads:
+            graph[u].append((v, dist))
+            graph[v].append((u, dist))
+
+        visited = [False] * (n + 1)
+        queue = deque([1])
+        visited[1] = True
+
+        answer = float("inf")
+
+        while queue:
+            city = queue.popleft()
+
+            for nxt, dist in graph[city]:
+                # Keep track of the smallest road seen
+                answer = min(answer, dist)
+
+                if not visited[nxt]:
+                    visited[nxt] = True
+                    queue.append(nxt)
+
+        return answer
