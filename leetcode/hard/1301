@@ -1,0 +1,54 @@
+class Solution:
+    def pathsWithMaxScore(self, board):
+        n = len(board)
+        MOD = 10**9 + 7
+
+        # dpScore[i][j] = maximum score we can get from this cell to S
+        # dpWays[i][j] = number of ways to get that maximum score
+        dpScore = [[-1] * n for _ in range(n)]
+        dpWays = [[0] * n for _ in range(n)]
+
+        # Starting point (S)
+        dpScore[n - 1][n - 1] = 0
+        dpWays[n - 1][n - 1] = 1
+
+        # Fill the tables from bottom-right to top-left
+        for i in range(n - 1, -1, -1):
+            for j in range(n - 1, -1, -1):
+
+                if board[i][j] == "X":
+                    continue
+
+                if i == n - 1 and j == n - 1:
+                    continue
+
+                maxScore = -1
+                ways = 0
+
+                # Possible next positions
+                for x, y in [(i + 1, j), (i, j + 1), (i + 1, j + 1)]:
+                    if x >= n or y >= n:
+                        continue
+                    if dpScore[x][y] == -1:
+                        continue
+
+                    if dpScore[x][y] > maxScore:
+                        maxScore = dpScore[x][y]
+                        ways = dpWays[x][y]
+                    elif dpScore[x][y] == maxScore:
+                        ways = (ways + dpWays[x][y]) % MOD
+
+                if maxScore == -1:
+                    continue
+
+                dpScore[i][j] = maxScore
+                dpWays[i][j] = ways
+
+                # Add the current cell's value if it's a number
+                if board[i][j].isdigit():
+                    dpScore[i][j] += int(board[i][j])
+
+        if dpWays[0][0] == 0:
+            return [0, 0]
+
+        return [dpScore[0][0], dpWays[0][0]]
