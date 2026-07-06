@@ -1,0 +1,17 @@
+class Solution:
+    def removeCoveredIntervals(self, intervals):
+        # Sort by start increasing.
+        # If starts are same, keep the longer interval first.
+        intervals.sort(key=lambda x: (x[0], -x[1]))
+
+        remaining = 0
+        farthest_end = 0
+
+        for start, end in intervals:
+            # If this interval extends beyond everything we've seen,
+            # it is not covered.
+            if end > farthest_end:
+                remaining += 1
+                farthest_end = end
+
+        return remaining
