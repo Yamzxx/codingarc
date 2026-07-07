@@ -1,0 +1,13 @@
+class Solution:
+    def sumAndMultiply(self, n: int) -> int:
+        r = 0 #resultant
+        s = 0 #sum 
+        for x in str(n):
+            v = int(x)
+            if v!= 0:
+                s += v
+                r = r * 10 + v
+        return s * r
+
+
+        
