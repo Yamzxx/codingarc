@@ -1,0 +1,27 @@
+class Solution:
+    def gcdSum(self, nums: list[int]) -> int:
+        prefix_gcd = []
+        max_so_far= 0
+
+        #Build the prefix array
+        for num in nums:
+            max_so_far = max(max_so_far, num)
+            prefix_gcd.append(gcd(num,max_so_far))
+        #Sort the array
+        prefix_gcd.sort()
+
+        #pair smallest with largest
+        left = 0
+        right = len(prefix_gcd) - 1
+        answer = 0
+
+        while left<right:
+            answer += gcd(prefix_gcd[left],prefix_gcd[right])
+
+            left += 1
+            right -=1
+        return answer
+
+
+
+        
