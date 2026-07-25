@@ -1,0 +1,22 @@
+class Solution:
+    def maxProduct(self, n: int) -> int:
+        #Initalize largest and second Largest
+        largest = 0
+        second_largest = 0
+        #Extract each digit from the number 
+        while n > 0:
+            #Get the last digit and remove it from n
+            n, current_digit = divmod(n, 10)
+            #Update the two largest digits
+            if current_digit > largest:
+                #current digit becomes the new largest
+                #previous largest becomes second largest
+                second_largest = largest
+                largest = current_digit
+            elif current_digit > second_largest:
+                #Curret digit is not the largets but bigger than second largest
+                second_largest = current_digit
+        return largest * second_largest 
+
+
+        
