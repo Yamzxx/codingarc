@@ -1,0 +1,16 @@
+class Solution:
+    def maximumProduct(self, nums: List[int]) -> int:
+        # Sort the array in ascending order
+        nums.sort()
+      
+        
+        # This handles the case where all numbers are positive
+        # or when the largest positive numbers give the maximum product
+        product_three_largest = nums[-1] * nums[-2] * nums[-3]
+      
+        # Calculate product of two smallest numbers and the largest number
+        
+        product_two_smallest_one_largest = nums[-1] * nums[0] * nums[1]
+      
+        # Return the maximum of the two possible products
+        return max(product_three_largest, product_two_smallest_one_largest)
