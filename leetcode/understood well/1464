@@ -1,0 +1,19 @@
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        max_product = 0
+        
+        # Iterate through each element as the first number
+
+        for i,first_num in enumerate (nums):
+        # Iterate through all elements after index i as the second number
+
+            for second_num in nums[i+1:]:
+                current_product = (first_num - 1) * (second_num - 1)
+
+                max_product = max(max_product,current_product)
+        return max_product
+
+
+
+
+        
