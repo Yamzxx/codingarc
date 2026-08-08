@@ -1,0 +1,21 @@
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        mini = prices[0] #minimun so far
+        profit = 0 
+        for i in range(len(prices)):
+            #find the cost
+            cost = prices[i] - mini
+            #max profit
+            profit = max(profit,cost)
+            #mini of prices so far
+            mini = min(prices[i],mini)
+
+        return profit
+
+
+        
+    
+
+
+            
+        
