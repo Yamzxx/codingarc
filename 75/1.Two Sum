@@ -1,0 +1,15 @@
+class Solution:
+    def twoSum(self,nums,target):
+        #create a dictionary to store the values
+        ValueMap = {}
+        for i, n in enumerate(nums):#go through each and every value of nums
+            diff = target - n
+
+            if diff in ValueMap:
+                return(ValueMap[diff],i)
+                break
+            ValueMap [n] = i
+        
+    
+                
+            
