@@ -1,0 +1,22 @@
+class Solution:
+    def winnerSquareGame(self, n: int) -> bool:
+        def can_win(remaining_stones,n):
+            if remaining_stones==0:
+                return False
+            sqaure_root = 1
+            while square_root * square_root <= remaining_stones:
+                stone_to_remove = square_root * square_root
+                if not can_win(remaining_stones - stones_to_remove):
+                    return True
+                  
+                square_root += 1
+          
+           
+            return False
+      
+        # Alice starts first, check if can win
+        return can_win(n)
+
+
+
+        
