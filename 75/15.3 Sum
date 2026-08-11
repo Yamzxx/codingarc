@@ -1,0 +1,38 @@
+class Solution:
+    def threeSum(self, nums: list[int]) -> list[list[int]]:
+
+        nums.sort()
+        Result = []
+
+        for i in range(len(nums) - 2):
+            #here - 2 beacuse we fix i and two other left and right need to be there 
+            if i > 0 and nums[i] == nums[i-1]: #make sure it doent start with same nos to avoid the dupliacte sets
+                continue
+
+            left = i + 1
+            right = len(nums) - 1
+            while left < right:
+
+                current_sum  = nums[i] + nums[left] + nums [right]
+
+                if current_sum == 0:
+                    Result.append([nums[i],nums[left],nums[right]])
+
+                    #now one set done,we move on to next
+                    left += 1
+                    right -=1
+
+                    while left < right and nums[left] == nums[left - 1]: #check dupliacte  
+
+                        left += 1
+
+                    while left < right and nums[right] == nums[right +1]:
+                        right -= 1
+                elif current_sum < 0:
+                    left += 1
+                else:
+                    right -=1
+        return Result
+
+                                      
+        
