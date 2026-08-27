@@ -1,0 +1,47 @@
+class Solution:
+    def lexGreaterPermutation(self, s: str, target: str) -> str:
+        n = len(s)
+
+        
+        count = [0] * 26
+
+        for ch in s:
+            count[ord(ch) - ord('a')] += 1
+
+        
+        for i in range(n - 1, -1, -1):
+
+            
+            temp = count.copy()
+
+            possible = True
+
+            for j in range(i):
+                idx = ord(target[j]) - ord('a')
+
+                if temp[idx] == 0:
+                    possible = False
+                    break
+
+                temp[idx] -= 1
+
+            if not possible:
+                continue
+
+            
+            target_idx = ord(target[i]) - ord('a')
+
+            for c in range(target_idx + 1, 26):
+                if temp[c] > 0:
+
+                    temp[c] -= 1
+
+                    ans = target[:i] + chr(c + ord('a'))
+
+                    
+                    for k in range(26):
+                        ans += chr(k + ord('a')) * temp[k]
+
+                    return ans
+
+        return ""
