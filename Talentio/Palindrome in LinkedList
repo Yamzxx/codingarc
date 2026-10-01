@@ -1,0 +1,29 @@
+def is_palindrome(head): 
+if not head or not head.next: 
+return True 
+# Find middle 
+    slow = fast = head 
+while fast.next and fast.next.next: 
+        slow = slow.next 
+        fast = fast.next.next 
+# Reverse second half 
+    second_half = reverse_list(slow.next) 
+# Compare 
+    first_half = head 
+while second_half: 
+if first_half.val != second_half.val: 
+return False 
+        first_half = first_half.next 
+        second_half = second_half.next 
+return True 
+def reverse_list(head): 
+    prev = None 
+    current = head 
+while current: 
+        next_temp = current.next 
+        current.next = prev 
+        prev = current 
+        current = next_temp 
+2025-07-02
+7 / 60
+return prev 
