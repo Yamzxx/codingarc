@@ -1,0 +1,17 @@
+
+def dfs(graph, start):
+    visited = set()
+    order = []
+
+    def explore(node):
+        visited.add(node)
+        order.append(node)
+
+        for neighbor in graph[node]:
+            if neighbor not in visited:
+                explore(neighbor)
+
+    explore(start)
+    return order
+
+print(dfs(graph, 0))
